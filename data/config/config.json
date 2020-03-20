@@ -1,0 +1,28 @@
+{
+    "inv_click_xoffset" : 1297,
+    "inv_click_yoffset" : 615,
+    "stash_click_xoffset" : 30,
+    "stash_click_yoffset" : 175,
+    "item_slot_adjustment": 26.375,
+    "tab_dropdown_loc_x": 642,
+    "tab_dropdown_loc_y": 144,
+    "first_tab_loc_x": 706,
+    "first_tab_loc_y": 144,
+    "tab_pixel_size": 21.13,
+    "trade_click_x_them": 335,
+    "trade_click_y_them": 228,
+    "screenshot_inv_x": 1270,
+    "screenshot_inv_y": 589,
+    "screenshot_inv_width": 634,
+    "screenshot_inv_height": 259,
+
+    "screenshot_stash_x": 311,
+    "screenshot_stash_y": 204,
+    "screenshot_stash_width": 631,
+    "screenshot_stash_height": 262,
+
+    "screenshot_trade_x": 311,
+    "screenshot_trade_y": 535,
+    "screenshot_trade_width": 631,
+    "screenshot_trade_height": 262
+}

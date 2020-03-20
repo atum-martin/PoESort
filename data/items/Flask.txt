@@ -1,0 +1,45 @@
+﻿Amethyst Flask
+Aquamarine Flask
+Basalt Flask
+Bismuth Flask
+Colossal Hybrid Flask
+Colossal Life Flask
+Colossal Mana Flask
+Diamond Flask
+Divine Life Flask
+Divine Mana Flask
+Eternal Life Flask
+Eternal Mana Flask
+Giant Life Flask
+Giant Mana Flask
+Grand Life Flask
+Grand Mana Flask
+Granite Flask
+Greater Life Flask
+Greater Mana Flask
+Hallowed Hybrid Flask
+Hallowed Life Flask
+Hallowed Mana Flask
+Jade Flask
+Large Hybrid Flask
+Large Life Flask
+Large Mana Flask
+Medium Hybrid Flask
+Medium Life Flask
+Medium Mana Flask
+Quartz Flask
+Quicksilver Flask
+Ruby Flask
+Sacred Hybrid Flask
+Sacred Life Flask
+Sacred Mana Flask
+Sanctified Life Flask
+Sanctified Mana Flask
+Sapphire Flask
+Silver Flask
+Small Hybrid Flask
+Small Life Flask
+Small Mana Flask
+Stibnite Flask
+Sulphur Flask
+Topaz Flask

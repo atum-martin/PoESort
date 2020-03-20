@@ -1,0 +1,25 @@
+﻿Antique Rapier
+Apex Rapier
+Basket Rapier
+Battered Foil
+Burnished Foil
+Courtesan Sword
+Dragonbone Rapier
+Dragoon Sword
+Elegant Foil
+Estoc
+Fancy Foil
+Harpy Rapier
+Jagged Foil
+Jewelled Foil
+Pecoraro
+Primeval Rapier
+Rusted Spike
+Serrated Foil
+Smallsword
+Spiraled Foil
+Tempered Foil
+Thorn Rapier
+Vaal Rapier
+Whalebone Rapier
+Wyrmbone Rapier
