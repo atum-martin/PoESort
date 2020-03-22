@@ -26,7 +26,7 @@ def printChaosAmounts(tabResults):
     print("rings: " + str(countChaosItem(tabResults, 'isRing')))
     print("amulets: " + str(countChaosItem(tabResults, 'isAmulet')))
     print("belts: " + str(countChaosItem(tabResults, 'isBelt')))
-    print("weapons: " + str(countChaosItem(tabResults, 'isWeapon')))
+    print("weapons: " + str(countChaosItem(tabResults, 'isChaosWeapon')))
     print("body: " + str(countChaosItem(tabResults, 'isBodyArmour')))
 
 def getChaosRecipe(itemDB):
@@ -40,8 +40,8 @@ def getChaosRecipe(itemDB):
     withdrawItems.append(findChaosItem(tabResults, 'isRing', withdrawItems))
     withdrawItems.append(findChaosItem(tabResults, 'isAmulet', withdrawItems))
     withdrawItems.append(findChaosItem(tabResults, 'isBelt', withdrawItems))
-    withdrawItems.append(findChaosItem(tabResults, 'isWeapon', withdrawItems))
-    withdrawItems.append(findChaosItem(tabResults, 'isWeapon', withdrawItems))
+    withdrawItems.append(findChaosItem(tabResults, 'isChaosWeapon', withdrawItems))
+    withdrawItems.append(findChaosItem(tabResults, 'isChaosWeapon', withdrawItems))
     withdrawItems.append(findChaosItem(tabResults, 'isBodyArmour', withdrawItems))
 
     removeItems(tabResults, withdrawItems)
@@ -54,7 +54,7 @@ def getChaosRecipe(itemDB):
             PoeInputMacro.changeTab(tab)
             for item in withdrawItems:
                 if item.tabId == tab:
-                    print("withdraw: "+str(item.x)+" "+str(item.y))
+                    print("withdraw: "+str(item.x)+" "+str(item.y)+" "+item.typeLine)
                     PoeInputMacro.clickStashItem(item.x, item.y, PoeChaosRecipe.tabSetup.isQuad(tab))
 
 def removeItems(tabResults, withdrawItems):

@@ -48,6 +48,13 @@ class PoeItem:
             return True
         return False
 
+    def isChaosWeapon(self):
+        if "2DItems/Weapons/OneHandWeapons" in self.iconPath:
+            return True
+        if "2DItems/Armours/Shields" in self.iconPath:
+            return True
+        return False
+
     def isAmulet(self):
         if "2DItems/Amulets" in self.iconPath:
             return True
@@ -84,7 +91,14 @@ class PoeItem:
         return False
 
     def isEssence(self, itemDB):
-        if " essence of " in self.typeLine.lower():
+        #if " essence of " in self.typeLine.lower():
+        if "Currency/Essence" in self.iconPath:
+            return True
+
+        return False
+
+    def isProphecy(self, itemDB):
+        if "Currency/ProphecyOrbRed" in self.iconPath:
             return True
         return False
 
@@ -94,17 +108,35 @@ class PoeItem:
         return False
 
     def isMetamorph(self, itemDB):
-        if " heart" in self.typeLine.lower():
-            return True
-        if " lung" in self.typeLine.lower():
-            return True
-        if " eyes" in self.typeLine.lower():
-            return True
-        if " liver" in self.typeLine.lower():
-            return True
-        if " brain" in self.typeLine.lower():
+        if "Currency/Metamorph" in self.iconPath:
             return True
         return False
+
+    def isIncubator(self, itemDB):
+        if "Currency/Incubation" in self.iconPath:
+            return True
+        return False
+
+    def isOil(self, itemDB):
+        if "Currency/Oils" in self.iconPath:
+            return True
+        return False
+
+    def isCatalyst(self, itemDB):
+        if "Currency/Catalysts" in self.iconPath:
+            return True
+        return False
+
+    def isGem(self, itemDB):
+        if "2DItems/Gems" in self.iconPath:
+            return True
+        return False
+
+    def isDelveItem(self, itemDB):
+        if "Currency/Delve" in self.iconPath:
+            return True
+        return False
+
 
     def isDivination(self, itemDB):
         if "2DItems/Divination/InventoryIcon.png" in self.iconPath:
@@ -123,6 +155,8 @@ class PoeItem:
         if "divine vessel" in self.typeLine.lower():
             return True
         if "offering to the godess" in self.typeLine.lower():
+            return True
+        if "2DItems/Maps" in self.iconPath:
             return True
         return False
 
@@ -212,6 +246,7 @@ def getStash(tabId):
        typeLine = item['typeLine']
        identified = item['identified']
        frameType = item['frameType']
+       print(typeLine+" "+iconPath+" "+str(frameType))
        itemIn = PoeItem(x, y, w, h, identified, typeLine, iconPath, tabId, ilvl, frameType)
        poeItems.append(itemIn)
     return poeItems

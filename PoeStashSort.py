@@ -19,11 +19,20 @@ def sortStashTab(tabId, itemDB):
     sortTab(findStashTabId('div', tabSetup), tabId, items, itemDB, tabSetup, 'isDivination')
     sortTab(findStashTabId('flasks', tabSetup), tabId, items, itemDB, tabSetup, 'isFlask')
     sortTab(findStashTabId('jewels', tabSetup), tabId, items, itemDB, tabSetup, 'isJewel')
-    sortTab(findStashTabId('jewels', tabSetup), tabId, items, itemDB, tabSetup, 'isMetamorph')
+    sortTab(findStashTabId('other', tabSetup), tabId, items, itemDB, tabSetup, 'isProphecy')
+    sortTab(findStashTabId('other', tabSetup), tabId, items, itemDB, tabSetup, 'isIncubator')
+    sortTab(findStashTabId('other', tabSetup), tabId, items, itemDB, tabSetup, 'isOil')
+    sortTab(findStashTabId('other', tabSetup), tabId, items, itemDB, tabSetup, 'isCatalyst')
+    sortTab(findStashTabId('other', tabSetup), tabId, items, itemDB, tabSetup, 'isMetamorph')
+    sortTab(findStashTabId('gems', tabSetup), tabId, items, itemDB, tabSetup, 'isGem')
+    sortTab(findStashTabId('other', tabSetup), tabId, items, itemDB, tabSetup, 'isDelveItem')
+
+
 
 def findStashTabId(tabName, tabSetup):
     for tabInfo in tabSetup.tabInfoList:
-        if tabInfo.name in tabName:
+        if tabName in tabInfo.name:
+            print("found stash tab for: "+tabName+" "+tabInfo.name+" "+str(tabInfo.id))
             return (tabInfo.id+1)
     return -1
 
