@@ -5,7 +5,8 @@ import time
 class PoeChaosRecipe:
     tabResults = []
     tabResultsTimestamp = 0.0
-    tabs = [4]
+    tabs = [0]
+    tabSetup = None
 
 def getTabContents():
 
@@ -18,9 +19,20 @@ def getTabContents():
     PoeChaosRecipe.tabResultsTimestamp = time.time()
     return PoeChaosRecipe.tabResults
 
+def printChaosAmounts(tabResults):
+    print("helmets: "+str(countChaosItem(tabResults, 'isHelmet')))
+    print("gloves: " + str(countChaosItem(tabResults, 'isGloves')))
+    print("boots: " + str(countChaosItem(tabResults, 'isBoots')))
+    print("rings: " + str(countChaosItem(tabResults, 'isRing')))
+    print("amulets: " + str(countChaosItem(tabResults, 'isAmulet')))
+    print("belts: " + str(countChaosItem(tabResults, 'isBelt')))
+    print("weapons: " + str(countChaosItem(tabResults, 'isWeapon')))
+    print("body: " + str(countChaosItem(tabResults, 'isBodyArmour')))
+
 def getChaosRecipe(itemDB):
     tabResults = getTabContents()
     withdrawItems = []
+    printChaosAmounts(tabResults)
     withdrawItems.append(findChaosItem(tabResults, 'isHelmet', withdrawItems))
     withdrawItems.append(findChaosItem(tabResults, 'isGloves', withdrawItems))
     withdrawItems.append(findChaosItem(tabResults, 'isBoots', withdrawItems))
@@ -33,7 +45,9 @@ def getChaosRecipe(itemDB):
     withdrawItems.append(findChaosItem(tabResults, 'isBodyArmour', withdrawItems))
 
     removeItems(tabResults, withdrawItems)
-    tabSetup = PoeStash.getTabs()
+
+    if PoeChaosRecipe.tabSetup is None:
+        PoeChaosRecipe.tabSetup = PoeStash.getTabs()
 
     for tab in PoeChaosRecipe.tabs:
         if tabHasItems(tab, withdrawItems):
@@ -41,7 +55,7 @@ def getChaosRecipe(itemDB):
             for item in withdrawItems:
                 if item.tabId == tab:
                     print("withdraw: "+str(item.x)+" "+str(item.y))
-                    PoeInputMacro.clickStashItem(item.x, item.y, tabSetup.isQuad(tab))
+                    PoeInputMacro.clickStashItem(item.x, item.y, PoeChaosRecipe.tabSetup.isQuad(tab))
 
 def removeItems(tabResults, withdrawItems):
     for tab in tabResults:
@@ -62,6 +76,15 @@ def findChaosItem(tabs, func, withdrawItems):
             if getattr(item, func)() and not alreadyReserved(item, withdrawItems) and not item.identified and item.ilvl >= 65 and item.frameType == 2:
                 return item
     raise Exception("no item found for slot: "+func)
+
+def countChaosItem(tabs, func):
+    count = 0
+    for tab in tabs:
+        for item in tab:
+            #item level 65+, rare only, unid,
+            if getattr(item, func)() and not item.identified and item.ilvl >= 65 and item.frameType == 2:
+                count += 1
+    return count
 
 def alreadyReserved(item, withdrawItems):
     return item in withdrawItems

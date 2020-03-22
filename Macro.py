@@ -12,7 +12,7 @@ import math
 import json
 
 
-with open('data/config/1440p_config.json') as json_data_file:
+with open('data/config/1080p_config.json') as json_data_file:
     config = json.load(json_data_file)
 
 PoeInputMacro.setupMacro(config)
@@ -40,8 +40,8 @@ def on_release(key):
         #PoeChaosRecipe.getTabContents()
         if checkIsPoeInForeground():
             #PoeInputMacro.getItemStatusStash(0,0,True)
-            PoeStashSort.sortStashTab(4, itemDB)
-            PoeStashSort.sortStashTab(5, itemDB)
+            PoeStashSort.sortStashTab(-1, itemDB)
+            #PoeStashSort.sortStashTab(5, itemDB)
         else:
             print("action: "+format(key)+" aborted, window not in focus")
     if format(key) == '<98>':
