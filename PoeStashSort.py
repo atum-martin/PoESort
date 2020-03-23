@@ -2,6 +2,7 @@ import math
 import PoeStash
 import PoeInputMacro
 import PoeDepositAll
+import PoePlayerConfig
 
 def sortStashTab(tabId, itemDB):
     tabSetup = PoeStash.getTabs()
@@ -12,26 +13,85 @@ def sortStashTab(tabId, itemDB):
     PoeInputMacro.changeTab(tabId)
 
     isQuadTab = tabSetup.isQuad(tabId)
-    sortTab(tabSetup.mapTab, tabId, items, itemDB, tabSetup, 'isMap')
-    sortTab(tabSetup.currencyTab, tabId, items, itemDB, tabSetup, 'isCurrency')
-    sortTab(tabSetup.essenceTab, tabId, items, itemDB, tabSetup, 'isEssence')
-    sortTab(tabSetup.fragmentTab, tabId, items, itemDB, tabSetup, 'isFragment')
-    sortTab(findStashTabId('div', tabSetup), tabId, items, itemDB, tabSetup, 'isDivination')
-    sortTab(findStashTabId('flasks', tabSetup), tabId, items, itemDB, tabSetup, 'isFlask')
-    sortTab(findStashTabId('jewels', tabSetup), tabId, items, itemDB, tabSetup, 'isJewel')
-    sortTab(findStashTabId('other', tabSetup), tabId, items, itemDB, tabSetup, 'isProphecy')
-    sortTab(findStashTabId('other', tabSetup), tabId, items, itemDB, tabSetup, 'isIncubator')
-    sortTab(findStashTabId('other', tabSetup), tabId, items, itemDB, tabSetup, 'isOil')
-    sortTab(findStashTabId('other', tabSetup), tabId, items, itemDB, tabSetup, 'isCatalyst')
-    sortTab(findStashTabId('other', tabSetup), tabId, items, itemDB, tabSetup, 'isMetamorph')
-    sortTab(findStashTabId('gems', tabSetup), tabId, items, itemDB, tabSetup, 'isGem')
-    sortTab(findStashTabId('other', tabSetup), tabId, items, itemDB, tabSetup, 'isDelveItem')
+    if getTabId(tabSetup, tabSetup.mapTab, PoePlayerConfig.PlayerConfig.sorting_override_maps) >= 0:
+        sortTab(getTabId(tabSetup, tabSetup.mapTab, PoePlayerConfig.PlayerConfig.sorting_override_maps), tabId, items, itemDB, tabSetup, 'isMap')
 
+    if getTabId(tabSetup, tabSetup.currencyTab, PoePlayerConfig.PlayerConfig.sorting_override_currency) >= 0:
+        sortTab(getTabId(tabSetup, tabSetup.currencyTab, PoePlayerConfig.PlayerConfig.sorting_override_currency), tabId, items, itemDB, tabSetup, 'isCurrency')
+
+    if getTabId(tabSetup, tabSetup.essenceTab, PoePlayerConfig.PlayerConfig.sorting_override_essence) >= 0:
+        sortTab(getTabId(tabSetup, tabSetup.essenceTab, PoePlayerConfig.PlayerConfig.sorting_override_essence), tabId, items, itemDB, tabSetup, 'isEssence')
+
+    if getTabId(tabSetup, tabSetup.fragmentTab, PoePlayerConfig.PlayerConfig.sorting_override_fragments) >= 0:
+        sortTab(getTabId(tabSetup, tabSetup.fragmentTab, PoePlayerConfig.PlayerConfig.sorting_override_fragments), tabId, items, itemDB, tabSetup, 'isFragment')
+
+    if getTabId(tabSetup, -1, PoePlayerConfig.PlayerConfig.sorting_override_div) >= 0:
+        sortTab(getTabId(tabSetup, -1, PoePlayerConfig.PlayerConfig.sorting_override_div), tabId, items, itemDB, tabSetup, 'isDivination')
+
+    if getTabId(tabSetup, -1, PoePlayerConfig.PlayerConfig.sorting_override_delve) >= 0:
+        sortTab(getTabId(tabSetup, -1, PoePlayerConfig.PlayerConfig.sorting_override_delve), tabId, items, itemDB, tabSetup, 'isDelveItem')
+
+    if getTabId(tabSetup, -1, PoePlayerConfig.PlayerConfig.sorting_flask) >= 0:
+        sortTab(getTabId(tabSetup, -1, PoePlayerConfig.PlayerConfig.sorting_flask), tabId, items, itemDB, tabSetup, 'isFlask')
+
+    if getTabId(tabSetup, -1, PoePlayerConfig.PlayerConfig.sorting_jewel) >= 0:
+        sortTab(getTabId(tabSetup, -1, PoePlayerConfig.PlayerConfig.sorting_jewel), tabId, items, itemDB, tabSetup, 'isJewel')
+
+    if getTabId(tabSetup, -1, PoePlayerConfig.PlayerConfig.sorting_prophecy) >= 0:
+        sortTab(getTabId(tabSetup, -1, PoePlayerConfig.PlayerConfig.sorting_prophecy), tabId, items, itemDB, tabSetup, 'isProphecy')
+
+    if getTabId(tabSetup, -1, PoePlayerConfig.PlayerConfig.sorting_incubator) >= 0:
+        sortTab(getTabId(tabSetup, -1, PoePlayerConfig.PlayerConfig.sorting_incubator), tabId, items, itemDB, tabSetup, 'isIncubator')
+
+    if getTabId(tabSetup, -1, PoePlayerConfig.PlayerConfig.sorting_oil) >= 0:
+        sortTab(getTabId(tabSetup, -1, PoePlayerConfig.PlayerConfig.sorting_oil), tabId, items, itemDB, tabSetup, 'isOil')
+
+    if getTabId(tabSetup, -1, PoePlayerConfig.PlayerConfig.sorting_catalyst) >= 0:
+        sortTab(getTabId(tabSetup, -1, PoePlayerConfig.PlayerConfig.sorting_catalyst), tabId, items, itemDB, tabSetup, 'isCatalyst')
+
+    if getTabId(tabSetup, -1, PoePlayerConfig.PlayerConfig.sorting_metamorph) >= 0:
+        sortTab(getTabId(tabSetup, -1, PoePlayerConfig.PlayerConfig.sorting_metamorph), tabId, items, itemDB, tabSetup, 'isMetamorph')
+
+    if getTabId(tabSetup, -1, PoePlayerConfig.PlayerConfig.sorting_gem) >= 0:
+        sortTab(getTabId(tabSetup, -1, PoePlayerConfig.PlayerConfig.sorting_gem), tabId, items, itemDB, tabSetup, 'isGem')
+
+def getTabId(tabSetup, autoSetupTabId, overrideTabId):
+    if isinstance(overrideTabId, int):
+        #user has given an id and not a tabname.
+        if overrideTabId == -1 and autoSetupTabId == -1:
+            return -1
+        if overrideTabId >= 0:
+            return overrideTabId
+        if autoSetupTabId >= 0:
+            return autoSetupTabId
+    else:
+        #overrideTabId is a string (lookup by tabname)
+        if overrideTabId == "-1" and autoSetupTabId == -1:
+            return -1
+        if overrideTabId == "-1":
+            return autoSetupTabId
+        return findStashTabId(overrideTabId, tabSetup)
+
+def shouldSort(autoSetupTabId, overrideTabId):
+    if isinstance(overrideTabId, int):
+        if overrideTabId == -1 and autoSetupTabId == -1:
+            return False
+        if overrideTabId >= 0:
+            return True
+        if autoSetupTabId >= 0:
+            return True
+    else:
+        if overrideTabId == "-1" and autoSetupTabId == -1:
+            return False
+        if overrideTabId != "-1":
+            return True
+        if autoSetupTabId >= 0:
+            return True
 
 
 def findStashTabId(tabName, tabSetup):
     for tabInfo in tabSetup.tabInfoList:
-        if tabName in tabInfo.name:
+        if tabName == tabInfo.name:
             print("found stash tab for: "+tabName+" "+tabInfo.name+" "+str(tabInfo.id))
             return (tabInfo.id+1)
     return -1
@@ -46,6 +106,8 @@ def getDefaultQuad(tabSetup):
     return -1
 
 def sortTab(targetTab, originTab, items, itemDB, tabSetup, func):
+    if targetTab == -1:
+        return
     filteredItems = []
     for item in items:
         if getattr(item, func)(itemDB):

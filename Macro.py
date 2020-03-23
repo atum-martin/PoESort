@@ -6,16 +6,25 @@ import PoeChaosRecipe
 import PoeDepositAll
 import PoeTradeMacros
 import PoeLogListener
+import PoEWebserver
+import PoePlayerConfig
 import time
 import threading
 import math
 import json
 
+with open('data/config/player_settings.json') as json_data_file:
+    config = json.load(json_data_file)
 
-with open('data/config/1080p_config.json') as json_data_file:
+PoePlayerConfig.setupConfig(config)
+
+with open("data/config/"+PoePlayerConfig.PlayerConfig.resolution+".json") as json_data_file:
     config = json.load(json_data_file)
 
 PoeInputMacro.setupMacro(config)
+
+
+
 itemDB = PoeItemDB.PoeItemDB()
 itemDB.initDB()
 
@@ -26,9 +35,14 @@ itemDB.initDB()
 t = threading.Thread(target=PoeLogListener.listenToFile, args=(itemDB,))
 t.start()
 
+t = threading.Thread(target=PoEWebserver.startWebServer)
+t.start()
+
+print("started POE macro account: "+PoePlayerConfig.PlayerConfig.account_name+" "+PoePlayerConfig.PlayerConfig.league)
+
 def checkIsPoeInForeground():
     foregroundText = PoeInputMacro.getForegroundWindowName()
-    if "Path of Exile" in foregroundText:
+    if PoePlayerConfig.PlayerConfig.path_of_exile_executable_title == foregroundText:
         return True
     return False
 

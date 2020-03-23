@@ -3,12 +3,13 @@ import regex as re
 import PoeInputMacro
 import time
 import PoeStash
+import PoePlayerConfig
 
 class ClientState:
     tradeReqs = dict()
     state = 0
     currentTradePartner = ""
-    tabSetup = PoeStash.getTabs()
+    tabSetup = None
     itemDB = 0
 
 class TradeReq:
@@ -21,10 +22,11 @@ class TradeReq:
         self.timestamp = time.time()
 
 def listenToFile(itemDB):
+    tabSetup = PoeStash.getTabs()
     ClientState.itemDB = itemDB
     print("starting to listen to POE logfile")
     from filetail import FileTail
-    tail = FileTail("C:\Program Files (x86)\Steam\steamapps\common\Path of Exile\logs\Client.txt")
+    tail = FileTail(PoePlayerConfig.PlayerConfig.logfile)
     for line in tail:
         regexWhisper(line)
 

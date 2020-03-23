@@ -24,5 +24,10 @@
     "screenshot_trade_x": 311,
     "screenshot_trade_y": 535,
     "screenshot_trade_width": 631,
-    "screenshot_trade_height": 262
+    "screenshot_trade_height": 262,
+
+    "screenshot_trade_them_x": 415,
+    "screenshot_trade_them_y": 271,
+    "screenshot_trade_them_width": 843,
+    "screenshot_trade_them_height": 351
 }

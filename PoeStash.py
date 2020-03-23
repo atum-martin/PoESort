@@ -1,4 +1,5 @@
 import requests
+import PoePlayerConfig
 
 class PoeTab:
     def __init__(self, id, name, type):
@@ -179,10 +180,9 @@ class StashSetup:
     def isQuad(self, id):
         return self.tabInfoList[id].isQuad()
 def getTabs():
-    URL = "https://www.pathofexile.com/character-window/get-stash-items?accountName=Mad_Turnip&realm=pc&league=Delirium&tabs=1&tabIndex=0&public=false"
+    URL = "https://www.pathofexile.com/character-window/get-stash-items?accountName="+PoePlayerConfig.PlayerConfig.account_name+"&realm=pc&league="+PoePlayerConfig.PlayerConfig.league+"&tabs=1&tabIndex=0&public=false"
 
-    # POESESSID=b3c40c0dfc52c2244da09b6a68b07e07
-    headers = {'cookie': '__cfduid=d1128d265cfe45da37e46988a04095c591583863471; POESESSID=af4ff41b77b386be99bfc953369997ac',
+    headers = {'cookie': "POESESSID="+PoePlayerConfig.PlayerConfig.poe_session_id,
               'x-requested-with': 'XMLHttpRequest',
               'referer': 'https://www.pathofexile.com/',
               'sec-fetch-mode': 'cors',
@@ -219,10 +219,9 @@ def getTabs():
 
 
 def getStash(tabId):
-    URL = "https://www.pathofexile.com/character-window/get-stash-items?accountName=Mad_Turnip&realm=pc&league=Delirium&tabs=0&tabIndex="+str(tabId)+"&public=false"
+    URL = "https://www.pathofexile.com/character-window/get-stash-items?accountName="+PoePlayerConfig.PlayerConfig.account_name+"&realm=pc&league="+PoePlayerConfig.PlayerConfig.league+"&tabs=0&tabIndex="+str(tabId)+"&public=false"
 
-    # POESESSID=b3c40c0dfc52c2244da09b6a68b07e07
-    headers = {'cookie': '__cfduid=d1128d265cfe45da37e46988a04095c591583863471; POESESSID=af4ff41b77b386be99bfc953369997ac',
+    headers = {'cookie': "POESESSID="+PoePlayerConfig.PlayerConfig.poe_session_id,
               'x-requested-with': 'XMLHttpRequest',
               'referer': 'https://www.pathofexile.com/',
               'sec-fetch-mode': 'cors',
@@ -246,7 +245,7 @@ def getStash(tabId):
        typeLine = item['typeLine']
        identified = item['identified']
        frameType = item['frameType']
-       print(typeLine+" "+iconPath+" "+str(frameType))
+       #print(typeLine+" "+iconPath+" "+str(frameType))
        itemIn = PoeItem(x, y, w, h, identified, typeLine, iconPath, tabId, ilvl, frameType)
        poeItems.append(itemIn)
     return poeItems

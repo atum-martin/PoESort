@@ -10,7 +10,7 @@ def despositAllInv():
             if PoeInputMacro.checkInvSlot(x, y, screenshot):
                 #whitelisted spot at the end of inv for scrolls
                 if not (x == 11 and y == 3) and not (x == 11 and y == 4):
-                    print("pixel "+str(x)+" "+str(y)+ " "+str(PoeInputMacro.checkInvSlot(x, y, screenshot)))
+                    #print("pixel "+str(x)+" "+str(y)+ " "+str(PoeInputMacro.checkInvSlot(x, y, screenshot)))
                     PoeInputMacro.clickInvItem(x,y)
                     screenshot = PoeInputMacro.screenInv()
             y += 1

@@ -1,15 +1,16 @@
 import PoeStash
 import PoeInputMacro
+import PoePlayerConfig
 import time
 
 class PoeChaosRecipe:
     tabResults = []
     tabResultsTimestamp = 0.0
-    tabs = [0]
+    tabs = None
     tabSetup = None
 
 def getTabContents():
-
+    PoeChaosRecipe.tabs = PoePlayerConfig.PlayerConfig.chaos_tab_ids
     #return cached results if less than 5 minutes old
     if len(PoeChaosRecipe.tabResults) > 0 and time.time() - PoeChaosRecipe.tabResultsTimestamp < 300:
         return PoeChaosRecipe.tabResults
